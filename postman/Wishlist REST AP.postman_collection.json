@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "66b9ca15-9d50-4a6c-9e9d-d50194887933",
+		"name": "Wishlist REST AP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register new product Wishlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product\": {\r\n        \"code\": \"001\",\r\n        \"name\": \"Book\"\r\n    },\r\n    \"client\": {\r\n        \"code\": \"001\",\r\n        \"name\": \"Mary\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/wishlist/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"wishlist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all wishlist product the client",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/wishlist/client/001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"wishlist",
+						"client",
+						"001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checks if a product is in the customer's wishlist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/wishlist/client/001/product/001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"wishlist",
+						"client",
+						"001",
+						"product",
+						"001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove item Wishlist client",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/wishlist/client/001/product/001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"wishlist",
+						"client",
+						"001",
+						"product",
+						"001"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

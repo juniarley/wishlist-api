@@ -1,5 +1,5 @@
 # Wishlist REST API example
-- 
+
 - [x] Spring Boot
 - [x] Spring Data
 - [x] MongoDB
@@ -19,3 +19,83 @@ If you prefer not to use docker, you can manually build and generate the executa
 
 The rest api application will be available at http://localhost:8080/v1/wishlist.
 
+### Endpoints
+
+| Method   | URL                                     | Description                                      |
+|----------| --------------------------------------- |--------------------------------------------------|
+| `GET`    | `/v1/wishlist/client/{codeClient}`      | List all wishlist product the client.            |
+| `GET`    |  `/v1/wishlist//client/{codeClient}/product/{codeProduct}`     | Checks if a product is in the client's wishlist. |
+| `POST`   | `/v1/wishlist`                          | Register new product Wishlist client             |
+| `DELETE` | `/v1/wishlist/client/{codeClient}/product/{codeProduct}`                         | Remove product Wishlist client.                         |
+
+
+## Examples
+
+### List all wishlist product the client.
+`GET` http://localhost:8080/v1/wishlist/client/001
+
+Response body:
+
+    [
+    {
+        "id": "62a538a12e890c0c6592d099",
+        "product": {
+            "code": "003",
+            "name": "Book"
+        },
+        "client": {
+            "code": "001",
+            "name": "Mary"
+        }
+    }
+]
+
+### Checks if a product is in the client's wishlist.
+`GET` http://localhost:8080/v1/wishlist/client/001/product/001
+
+Response body:
+
+    {
+        "id": "62a538a12e890c0c6592d099",
+        "product": {
+            "code": "003",
+            "name": "Book"
+        },
+        "client": {
+            "code": "001",
+            "name": "Mary"
+        }
+    }
+
+### Register new product Wishlist client.
+`POST` http://localhost:8080/v1/wishlist/
+
+Payload:
+
+    {
+        "product": {
+            "code": "003",
+            "name": "Book"
+        },
+        "client": {
+            "code": "001",
+            "name": "Mary"
+        }
+    }
+
+Response body:
+
+    {
+        "id": "62a538a12e890c0c6592d099",
+        "product": {
+            "code": "003",
+            "name": "Book"
+        },
+        "client": {
+            "code": "001",
+            "name": "Mary"
+        }
+    }
+
+### Remove product Wishlist client.
+`DELETE` http://localhost:8080/v1/wishlist/client/001/product/001

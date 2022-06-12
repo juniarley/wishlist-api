@@ -21,6 +21,7 @@ import com.wishlist.wishlistapi.domain.service.WishlistService;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -39,10 +40,7 @@ public class WishlistControllerTest {
     private WishlistService wishlistService;
 
     @Autowired
-    private WishlistModelAssembler wishlistModelAssembler;
-
-    @Autowired
-    private WishlistInputDisassembler wishlistInputDisassembler;
+    private ModelMapper modelMapper;
 
     private Wishlist wishlist;
 
@@ -51,30 +49,26 @@ public class WishlistControllerTest {
       private List<Wishlist> wishlistList = new ArrayList<>();
 
 
-
     @BeforeEach
     public void setup() {
         standaloneSetup(this.wishlistController);
 
-        wishlist = Wishlist.builder()
-                .id("507f1f77bcf86cd799439011")
-                .client(Client.builder().name("Mary").code("001").build())
-                .product(Product.builder().name("Book").code("001").build())
-                .build();
-
-        Wishlist wishlist1 = Wishlist.builder()
-                .id("507f1f77bcf86cd799js011")
-                .client(Client.builder().name("Mary").code("001").build())
-                .product(Product.builder().name("Bike").code("002").build())
-                .build();
-
-        wishlistList.add(wishlist);
-        wishlistList.add(wishlist1);
-
         wishlistInput = WishlistInput.builder()
+                .client(ClientInput.builder().name("Mary").code("001").build())
+                .product(ProductInput.builder().name("Book").code("001").build())
+                .build();
+
+        WishlistInput wishlistInput1 = WishlistInput.builder()
                 .client(ClientInput.builder().name("Mary").code("001").build())
                 .product(ProductInput.builder().name("Bike").code("002").build())
                 .build();
+
+
+        wishlist = modelMapper.map(wishlistInput, Wishlist.class);
+        Wishlist wishlist1 = modelMapper.map(wishlistInput1, Wishlist.class);
+
+        wishlistList.add(wishlist);
+        wishlistList.add(wishlist1);
 
     }
 

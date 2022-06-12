@@ -1,5 +1,9 @@
 package com.wishlist.wishlistapi.service;
 
+import com.wishlist.wishlistapi.api.v1.assembler.WishlistInputDisassembler;
+import com.wishlist.wishlistapi.api.v1.model.input.ClientInput;
+import com.wishlist.wishlistapi.api.v1.model.input.ProductInput;
+import com.wishlist.wishlistapi.api.v1.model.input.WishlistInput;
 import com.wishlist.wishlistapi.domain.exception.ExistingProductWishlistException;
 import com.wishlist.wishlistapi.domain.exception.MaximumAmountProductWishlistException;
 import com.wishlist.wishlistapi.domain.exception.WishlistNotFoundException;
@@ -21,6 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -36,23 +42,29 @@ public class WishlistServiceTest {
     @InjectMocks
     private WishlistService wishlistService;
 
+    @InjectMocks
+    private ModelMapper modelMapper;
+
     private Wishlist wishlist;
 
     private List<Wishlist> wishlistList = new ArrayList<>();
 
+    private WishlistInput wishlistInput;
+
     @Before
     public void init(){
-        wishlist = Wishlist.builder()
-                .id("507f1f77bcf86cd799439011")
-                .client(Client.builder().name("Mary").code("001").build())
-                .product(Product.builder().name("Book").code("001").build())
+        wishlistInput = WishlistInput.builder()
+                .client(ClientInput.builder().name("Mary").code("001").build())
+                .product(ProductInput.builder().name("Book").code("001").build())
                 .build();
 
-        Wishlist wishlist1 = Wishlist.builder()
-                    .id("507f1f77bcf86cd799js011")
-                    .client(Client.builder().name("Mary").code("001").build())
-                    .product(Product.builder().name("Bike").code("002").build())
-                    .build();
+        WishlistInput wishlistInput1 = WishlistInput.builder()
+                .client(ClientInput.builder().name("Mary").code("001").build())
+                .product(ProductInput.builder().name("Bike").code("002").build())
+                .build();
+
+        wishlist = modelMapper.map(wishlistInput, Wishlist.class);
+        Wishlist wishlist1 = modelMapper.map(wishlistInput1, Wishlist.class);
 
         wishlistList.add(wishlist);
         wishlistList.add(wishlist1);
