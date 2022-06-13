@@ -1,4 +1,4 @@
-# Wishlist REST API example
+# Wishlist REST API
 
 - [x] Spring Boot
 - [x] Spring Data
@@ -48,7 +48,7 @@ Response body:
             "name": "Mary"
         }
     }
-]
+    ]
 
 ### Checks if a product is in the client's wishlist.
 `GET` http://localhost:8080/v1/wishlist/client/001/product/001
